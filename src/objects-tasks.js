@@ -130,8 +130,18 @@ function isEmptyObject(obj) {
  *    immutableObj.newProp = 'new';
  *    console.log(immutableObj) => {a: 1, b: 2}
  */
-function makeImmutable(/* obj */) {
-  throw new Error('Not implemented');
+function makeImmutable(obj) {
+  // const obj1 = obj;
+  // const keys = Object.keys(obj1);
+  // keys.forEach((key) => {
+  //   Object.defineProperty(obj1, key, {
+  //     writable: false,
+  //   });
+  // });
+  // return obj1;
+  Object.freeze(obj);
+  return obj;
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -144,8 +154,21 @@ function makeImmutable(/* obj */) {
  *    makeWord({ a: [0, 1], b: [2, 3], c: [4, 5] }) => 'aabbcc'
  *    makeWord({ H:[0], e: [1], l: [2, 3, 8], o: [4, 6], W:[5], r:[7], d:[9]}) => 'HelloWorld'
  */
-function makeWord(/* lettersObject */) {
-  throw new Error('Not implemented');
+function makeWord(lettersObject) {
+  const arr = Object.entries(lettersObject);
+  const obj = {};
+  arr.forEach(([key, valueArr]) => {
+    valueArr.forEach((el) => {
+      obj[el] = key;
+    });
+  });
+
+  const str = Object.entries(obj)
+    .sort((a, b) => a[0] - b[0])
+    .map((el) => el[1])
+    .join('');
+  return str;
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -162,8 +185,32 @@ function makeWord(/* lettersObject */) {
  *    sellTickets([25, 25, 50]) => true
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
-function sellTickets(/* queue */) {
-  throw new Error('Not implemented');
+function sellTickets(queue) {
+  const obj = {};
+
+  for (let i = 0; i < queue.length; i += 1) {
+    if (queue[i] === 25) {
+      obj[25] = obj[25] ? obj[25] + 1 : 1;
+    } else if (queue[i] === 50) {
+      if (obj[25]) {
+        obj[25] = -1;
+        obj[50] = obj[50] ? obj[50] + 1 : 1;
+      } else {
+        return false;
+      }
+    } else if (queue[i] === 100) {
+      if (obj[50] && obj[25]) {
+        obj[50] = -1;
+        obj[25] = -1;
+      } else if (obj[25] >= 3) {
+        obj[25] = -3;
+      } else {
+        return false;
+      }
+    }
+  }
+  return true;
+  // throw new Error('Not implemented');
 }
 
 /**
