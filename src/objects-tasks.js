@@ -68,8 +68,12 @@ function removeProperties(/* obj, keys */) {
  *    compareObjects({a: 1, b: 2}, {a: 1, b: 2}) => true
  *    compareObjects({a: 1, b: 2}, {a: 1, b: 3}) => false
  */
-function compareObjects(/* obj1, obj2 */) {
-  throw new Error('Not implemented');
+function compareObjects(obj1, obj2) {
+  if (JSON.stringify(obj1) === JSON.stringify(obj2)) {
+    return true;
+  }
+  return false;
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -152,8 +156,16 @@ function sellTickets(/* queue */) {
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  const rectangle = {
+    width,
+    height,
+    getArea() {
+      return this.width * this.height;
+    },
+  };
+  return rectangle;
+  // throw new Error('Not implemented');
 }
 
 /**
