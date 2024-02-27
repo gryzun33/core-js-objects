@@ -35,8 +35,20 @@ function shallowCopy(obj) {
  *    mergeObjects([{a: 1, b: 2}, {b: 3, c: 5}]) => {a: 1, b: 5, c: 5}
  *    mergeObjects([]) => {}
  */
-function mergeObjects(/* objects */) {
-  throw new Error('Not implemented');
+function mergeObjects(objects) {
+  const arr1 = objects[0] ? Object.entries(objects[0]) : [];
+  const arr2 = objects[1] ? Object.entries(objects[1]) : [];
+  const arr = [...arr1, ...arr2];
+  const obj = {};
+  arr.forEach(([key, value]) => {
+    if (obj[key]) {
+      obj[key] += value;
+    } else {
+      obj[key] = value;
+    }
+  });
+  return obj;
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -52,8 +64,15 @@ function mergeObjects(/* objects */) {
  *    removeProperties({name: 'John', age: 30, city: 'New York'}, 'age') => {name: 'John', city: 'New York'}
  *
  */
-function removeProperties(/* obj, keys */) {
-  throw new Error('Not implemented');
+function removeProperties(obj, keys) {
+  const obj1 = obj;
+  keys.forEach((key) => {
+    if (obj1[key]) {
+      delete obj1[key];
+    }
+  });
+  return obj1;
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -87,8 +106,12 @@ function compareObjects(obj1, obj2) {
  *    isEmptyObject({}) => true
  *    isEmptyObject({a: 1}) => false
  */
-function isEmptyObject(/* obj */) {
-  throw new Error('Not implemented');
+function isEmptyObject(obj) {
+  if (Object.keys(obj).length === 0) {
+    return true;
+  }
+  return false;
+  // throw new Error('Not implemented');
 }
 
 /**
